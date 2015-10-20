@@ -1,0 +1,1 @@
+var Test = require('./TestComponent');
