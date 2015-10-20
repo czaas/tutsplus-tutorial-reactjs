@@ -4,7 +4,8 @@ var gulp = require('gulp'),
 	reactify = require('reactify'),
 	bs = require('browser-sync'),
 	reload = bs.reload,
-	minifyHtml = require('gulp-minify-html');
+	minifyHtml = require('gulp-minify-html'),
+	uglifyJs = require('gulp-uglify');
 
 var production = process.env.NODE_ENV === 'production';
 
