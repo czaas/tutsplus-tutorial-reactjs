@@ -1,5 +1,6 @@
 var React = require('react'),
-	ReactDom = require('react-dom');
+	ReactDom = require('react-dom'),
+	_ = require('lodash');
 
 var TestComponent = React.createClass({
 	render: function(){
@@ -10,6 +11,14 @@ var TestComponent = React.createClass({
 });
 
 var MessageBox = React.createClass({
+	deleteMessage: function(message){
+		var newMessages = _.without(this.state.messages, message);
+
+		this.setState({
+			messages: newMessages
+		});
+	},
+
 	handleAdd: function(e){
 		var newMessage = this.refs.newMessage.getDOMNode().value;
 		var newMessages = this.state.messages.concat([newMessage]);
@@ -39,8 +48,8 @@ var MessageBox = React.createClass({
 		};
 
 		var messages = this.state.messages.map(function(message){
-			return <SubMessage message={message} />;
-		});
+			return <SubMessage message={message} onDelete={this.deleteMessage} />;
+		}.bind(this));
 
 		return (
 			<div className="container jumbotron" style={inlineStyles}>
@@ -54,6 +63,9 @@ var MessageBox = React.createClass({
 });
 
 var SubMessage = React.createClass({
+	handleDelete: function(e){
+		this.props.onDelete(this.props.message);
+	},
 
 	propTypes: {
 		message: React.PropTypes.string.isRequired // validation of sorts: This must be a string and it IS required.
@@ -67,7 +79,7 @@ var SubMessage = React.createClass({
 
 	render: function(){
 		return (
-			<div>{this.props.message}</div>
+			<div>{this.props.message}<button className="btn btn-danger" onClick={this.handleDelete}>X</button></div>
 		);
 	}
 });
