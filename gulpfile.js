@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 var production = process.env.NODE_ENV === 'production';
 
 gulp.task('browserify', function(){
-	var bundler = browserify('./components/Main.js', {basedir: __dirname, debug: !production});
+	var bundler = browserify('./components/Main.js', {basedir: __dirname, debug: production});
 	bundler.transform(reactify);
 
 	var stream = bundler.bundle();
@@ -28,6 +28,13 @@ gulp.task('html', function(){
 	.pipe(reload({stream: true}));
 });
 
+gulp.task('minifyBundle', function(){
+	gulp.src('./transpiled/bundle.js')
+	.pipe(uglifyJs())
+	.pipe(gulp.dest('./transpiled/min'))
+	.pipe(reload({stream: true}));
+});
+
 gulp.task('watchFiles', function(){
 
 	bs.init({
@@ -35,7 +42,7 @@ gulp.task('watchFiles', function(){
 	});
 
 	gulp.watch('./app/*.html', ['html']);
-	gulp.watch('./components/*.js', ['browserify']);
+	gulp.watch('./components/*.js', ['browserify', 'minifyBundle']);
 });
 
 gulp.task('default', ['watchFiles']);
