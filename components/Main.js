@@ -6,8 +6,8 @@
 			ReactDom = require('react-dom'),
 
 			// components
-			TodoList = require('./TodoList'),
-			ListItem = require('./ListItem');
+			TodoList = require('./TodoList.js'),
+			ListItem = require('./ListItem.js');
 
 	ReactDom.render(<TodoList />, document.getElementById('app'));
 }());

@@ -1,6 +1,4 @@
-var React = require('react'),
-	ReactDom = require('react-dom'),
-	_ = require('lodash');
+var React = require('react');
 
 var TestComponent = React.createClass({
 	render: function(){

@@ -13,12 +13,13 @@ var TodoList = React.createClass({
 	},
 
 	handleAdd: function(e){
+
 		e.target.action = "#"; // prevent form from refreshing page
 
-		var newMessage = this.refs.newMessage.getDOMNode().value;
+		var newMessage = this.refs.newMessage.value;
 		var newMessages = this.state.messages.concat([newMessage]);
 
-		this.refs.newMessage.getDOMNode().value = ''; // clearing the input field
+		this.refs.newMessage.value = ''; // clearing the input field
 
 		this.setState({
 			messages: newMessages

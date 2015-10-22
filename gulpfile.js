@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 var production = process.env.NODE_ENV === 'production';
 
 gulp.task('browserify', function(){
-	var bundler = browserify('./components/Main.js', {basedir: __dirname, debug: production});
+	var bundler = browserify('./components/Main.js', {basedir: __dirname, debug: !production});
 	bundler.transform(reactify);
 
 	var stream = bundler.bundle();
