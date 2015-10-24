@@ -19,10 +19,9 @@ var TodoList = React.createClass({
 		var newMessage = this.refs.newMessage.value;
 		var newMessages = this.state.messages.concat([newMessage]);
 
-		this.refs.newMessage.value = ''; // clearing the input field
-
 		this.setState({
-			messages: newMessages
+			messages: newMessages,
+			value: ''
 		});
 	},
 
@@ -39,6 +38,12 @@ var TodoList = React.createClass({
 		};
 	},
 
+	handleInputChange: function(e){
+		this.setState({
+			value: e.target.value
+		});
+	},
+
 	render: function(){
 
 		var inlineStyles = {
@@ -53,7 +58,7 @@ var TodoList = React.createClass({
 			<div className="container jumbotron" style={inlineStyles}>
 				<h2>{this.state.titleMessage}</h2>
 				<form onSubmit={this.handleAdd}>
-					<input type="text" ref="newMessage" />
+					<input type="text" ref="newMessage" value={this.state.value} onChange={this.handleInputChange} />
 					<button className="btn btn-primary">Add</button>
 				</form>
 				{ messages }

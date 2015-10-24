@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports ={
 	entry: './components/Main.js',
 	output: {
@@ -10,5 +12,11 @@ module.exports ={
 			exclude: /(node_modules)/,
 			loader: 'babel'
 		}]
-	}
+	},
+	plugins: [
+		new webpack.optimize.UglifyJsPlugin({
+			sourceMap: false,
+			mangle: false
+		})
+	]
 };
